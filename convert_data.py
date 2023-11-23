@@ -116,23 +116,22 @@ def split_val_folds(src_root: str, num_folds: int):
         print(f'{src_file} --> {dst_file}')
 
 
-
 def main(task: int):
     if task <= 1:
         convert(
             'data/Animals_with_Attributes2/Features/ResNet101/AwA2-features.txt',
             'data/Animals_with_Attributes2/Features/ResNet101/AwA2-filenames.txt',
             'data/Animals_with_Attributes2/Features/ResNet101/AwA2-labels.txt',
-            'data/converted'
+            'data/converted_data'
         )
     if task <= 2:
-        split_train_test('data/converted', 'data/split')
+        split_train_test('data/converted_data', 'data/split_data')
     if task <= 3:
-        split_val_folds('data/split/train', 5) 
+        split_val_folds('data/split_data/train', 5)
 
 
 if __name__ == '__main__':
-    # main(3)
-    dirs = ['data/split/test'] + glob.glob('data/split/train/*')
+    main(1)
+    dirs = ['data/split_data/test'] + glob.glob('data/split_data/train/*')
     for pt in dirs:
         print(len(os.listdir(pt)))
